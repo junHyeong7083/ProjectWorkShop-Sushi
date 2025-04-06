@@ -5,11 +5,20 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public Rigidbody rb;
+    Rigidbody rigidbody;
     public float jumpForce;
     bool isGrounded = true;
 
     private Vector3 movement;
+    private Animator animator;
+
+    private void Awake()
+    {
+        rigidbody = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();    
+    }
+
+
 
     void OnCollisionEnter(Collision collision)
     {
@@ -24,17 +33,21 @@ public class PlayerMovement : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.z = Input.GetAxisRaw("Vertical");
 
-
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+            rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
             isGrounded = false;
         }
+
+        if (!isGrounded)// jumping
+            animator.SetBool("isJump", true);
+        else
+            animator.SetBool("isJump", false);
     }
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        rigidbody.MovePosition(rigidbody.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
 
