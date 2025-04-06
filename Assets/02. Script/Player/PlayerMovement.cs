@@ -12,16 +12,28 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded = true;
     private bool jumpPressed = false;
 
+    SushiSquash sushiSquash;
+    SushiSquashOscillation sq;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        sushiSquash = GetComponent<SushiSquash>();
+      //  sq = GetComponent<SushiSquashOscillation>();
     }
 
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("isGrounded"))
-            isGrounded = true;
+        {
+            // 만약 공중에 있었던 상태라면 (착지한 순간)
+            if (!isGrounded)
+            {
+                isGrounded = true;
+                // 점프 중 진동 효과를 중지하고 원래 스케일 복원
+              //  sq.SquashOscillate();
+            }
+        }
     }
 
     private void Update()
@@ -43,7 +55,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // �̵�
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
 
         if (jumpPressed)
@@ -59,5 +70,6 @@ public class PlayerMovement : MonoBehaviour
         velocity.y = jumpForce;
         rb.linearVelocity = velocity;
         isGrounded = false;
+      // sq.StartJumpOscillation();
     }
 }
