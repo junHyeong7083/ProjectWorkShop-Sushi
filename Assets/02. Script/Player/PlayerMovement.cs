@@ -1,54 +1,63 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    Rigidbody rigidbody;
+    [Header("Move && Jump")]
+    public float moveSpeed;
     public float jumpForce;
-    bool isGrounded = true;
 
-    private Vector3 movement;
+    private Rigidbody rb;
     private Animator animator;
+    private Vector3 movement;
+    private bool isGrounded = true;
+    private bool jumpPressed = false;
 
     private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();    
+        rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
-
-
 
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("isGrounded"))
-        {
             isGrounded = true;
-        }
     }
 
-    void Update()
+    private void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.z = Input.GetAxisRaw("Vertical");
+        float inputX = Input.GetAxisRaw("Horizontal");
+        float inputZ = Input.GetAxisRaw("Vertical");
+
+   
+        Vector3 camForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
+        Vector3 camRight = Camera.main.transform.right;
+     
+        movement = (camForward * inputZ + camRight * inputX).normalized;
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
-            isGrounded = false;
+            jumpPressed = true;
         }
-
-        if (!isGrounded)// jumping
-            animator.SetBool("isJump", true);
-        else
-            animator.SetBool("isJump", false);
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        rigidbody.MovePosition(rigidbody.position + movement * moveSpeed * Time.fixedDeltaTime);
+        // �̵�
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+
+        if (jumpPressed)
+        {
+            Jump();
+            jumpPressed = false; 
+        }
     }
 
-
+    private void Jump()
+    {
+        Vector3 velocity = rb.linearVelocity;
+        velocity.y = jumpForce;
+        rb.linearVelocity = velocity;
+        isGrounded = false;
+    }
 }
