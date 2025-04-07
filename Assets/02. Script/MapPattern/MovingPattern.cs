@@ -17,7 +17,7 @@ public class MovingPattern : MonoBehaviour
     [SerializeField] private Transform movingTarget;
 
     [Space(20)]
-    [Header("이동할 포인트 (wayPoints[0]은 무조건 시작지점이여야함)")]
+    [Header("이동할 포인트 (startPos은 무조건 0번인덱스)")]
     [SerializeField] private Transform[] wayPoints;
 
     [Space(10)]

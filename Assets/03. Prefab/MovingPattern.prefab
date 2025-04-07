@@ -1,0 +1,227 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1019970643225955900
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8825310595953216145}
+  m_Layer: 0
+  m_Name: startPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8825310595953216145
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1019970643225955900}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.11, y: 0.45, z: 3.17}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6568310834211467262}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3716512012810429724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2534870022349877484}
+  m_Layer: 0
+  m_Name: WayPoint1
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2534870022349877484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3716512012810429724}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.12, y: 2.0880957, z: -2.14}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6568310834211467262}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5715406014428896974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6566069908743991892}
+  - component: {fileID: 7430138737231055315}
+  m_Layer: 0
+  m_Name: ColliderObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6566069908743991892
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5715406014428896974}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6568310834211467262}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7430138737231055315
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5715406014428896974}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.99, y: 1, z: 3.15}
+  m_Center: {x: 0.11, y: 0.45, z: 3.17}
+--- !u!1 &5884387006934896030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6568310834211467262}
+  - component: {fileID: 2478155423385960277}
+  - component: {fileID: 3204704200123373267}
+  - component: {fileID: 2414125413603371831}
+  m_Layer: 0
+  m_Name: MovingPattern
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6568310834211467262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5884387006934896030}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8825310595953216145}
+  - {fileID: 2534870022349877484}
+  - {fileID: 6566069908743991892}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2478155423385960277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5884387006934896030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b02ee648f1a6aec469ea9fc63d9b1191, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: "1. FBX\uBAA8\uB378\uD30C\uC77C\uC744 MovingPattern\uC758 \uC790\uC2DD\uC73C\uB85C
+    \uB123\uAE30\n2. Moving Target\uC5D0 \uD574\uB2F9 fbx\uD30C\uC77C \uB4DC\uB798\uADF8\n3.
+    \uC774\uB3D9\uD560 \uC9C0\uC810 \uC124\uC815\n(0\uBC88\uC740 \uBB34\uC870\uAC74 
+    startPos\uC624\uBE0C\uC81D\uD2B8\uB97C \uB123\uAE30!)\n4. \uADF8\uB4A4 \uC774\uB3D9\uC6D0\uD558\uB294
+    \uC9C0\uC810 WayPoint\uC624\uBE0C\uC81D\uD2B8 \uBC30\uCE58\uD6C4 \uB4DC\uB798\uADF8\n(\uC774\uB3D9\uC9C0\uC810\uC740
+    \uBA87\uAC1C\uB4E0 \uC0C1\uAD00\uC5C6\uC74C)\n5. \uD328\uD134 \uD0C0\uC785 \uC124\uC815\n6.
+    Trigger\uD328\uD134\uC81C\uC791\uC2DC \uC6B0\uC120 ColliderObject\uC5D0 \uC874\uC7AC\uD558\uB294
+    \uCF5C\uB77C\uC774\uB354\uD06C\uAE30\uB97C \uC6D0\uD558\uB294\uB9CC\uD07C \uC124\uC815\n7.
+    isTriggerPattern\uC774 \uCCB4\uD06C\uB418\uC5B4\uC788\uC744\uACBD\uC6B0 \uC2DC\uC791\uACFC
+    \uB3D9\uC2DC\uC5D0 \uC6C0\uC9C1\uC774\uC9C0 \uC54A\uC74C\n8. \uCDA9\uB3CC\uCC98\uB9AC\uCF5C\uB77C\uC774\uB354\uB294
+    \uC6B0\uC120 box\uB9CC \uC81C\uC791 \n\n\nScene\uC5D0 \uBC30\uCE58\uD560\uB54C
+    \uB098\uD0C0\uB098\uC57C\uD560 \uAD6C\uC870\nMovingPattern\n\u3134 [ \uC6C0\uC9C1\uC77C
+    FBX \uD30C\uC77C ]\n\u3134 startPos\n\u3134 WayPoint1 \n\u3134 WayPoint2 .. (
+    \uCD94\uAC00\uC2DC ) \n\u3134 ColliderObject\n\n\n"
+--- !u!114 &3204704200123373267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5884387006934896030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 558aef4184bf78540b9d1c625f50825b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movingTarget: {fileID: 0}
+  wayPoints:
+  - {fileID: 8825310595953216145}
+  - {fileID: 2534870022349877484}
+  loopType: 2
+  isTriggerPattern: 1
+  moveSpeed: 5.03
+  boxColliderObj: {fileID: 7430138737231055315}
+--- !u!54 &2414125413603371831
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5884387006934896030}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 0
+  m_ImplicitTensor: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
