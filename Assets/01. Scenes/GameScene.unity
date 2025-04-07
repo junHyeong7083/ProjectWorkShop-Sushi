@@ -2239,6 +2239,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3204704200123373267, guid: 830cf49ff9035154d9344745047fb014,
         type: 3}
+      propertyPath: loopType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3204704200123373267, guid: 830cf49ff9035154d9344745047fb014,
+        type: 3}
       propertyPath: movingTarget
       value: 
       objectReference: {fileID: 0}
