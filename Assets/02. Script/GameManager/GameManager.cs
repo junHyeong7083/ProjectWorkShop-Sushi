@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
 
     public void TimerSub()
     {
-        Debug.Log("fallll");
         Timer -= Time.deltaTime;
         if (Timer < 0f)
         {
