@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.IO.IsolatedStorage;
+using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
 
     SushiSquash sushiSquash;
     SushiSquashOscillation sq;
+
+    private bool fallingStart = false;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -24,16 +27,21 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("isGrounded"))
+        if (collision.gameObject.CompareTag("isGrounded")|| collision.gameObject.CompareTag("isWalkable"))
         {
-            // 만약 공중에 있었던 상태라면 (착지한 순간)
             if (!isGrounded)
             {
                 isGrounded = true;
-                // 점프 중 진동 효과를 중지하고 원래 스케일 복원
-              //  sq.SquashOscillate();
             }
         }
+        if (collision.gameObject.CompareTag("isWalkable"))
+            fallingStart = true;
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("isGrounded") && fallingStart)
+            GameManager.instance.TimerSub();
     }
 
     private void Update()
@@ -66,10 +74,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        Vector3 velocity = rb.linearVelocity;
-        velocity.y = jumpForce;
-        rb.linearVelocity = velocity;
+        /* Vector3 velocity = rb.linearVelocity;
+         velocity.y = jumpForce;
+         rb.linearVelocity = velocity;
+         isGrounded = false;
+       // sq.StartJumpOscillation();*/
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         isGrounded = false;
-      // sq.StartJumpOscillation();
+
     }
 }
