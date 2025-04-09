@@ -10,7 +10,5 @@ public class FirstVillagePattern : MonoBehaviour
         }
     }
 
-
-    void confine
-
+    
 }
