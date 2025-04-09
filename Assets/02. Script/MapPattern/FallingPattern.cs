@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Drawing;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -19,8 +20,15 @@ public class FallingPattern : MonoBehaviour
 
     bool isFalling = false;
 
+    MeshRenderer meshRenderer;
+    Material material;
+    UnityEngine.Color color;
     private void Start()
     {
+        meshRenderer = GetComponent<MeshRenderer>();
+        material = meshRenderer.material;
+        color = material.color;
+
         rb = GetComponent<Rigidbody>(); 
         originPosition = this.transform.position;
         originRotation = this.transform.rotation;

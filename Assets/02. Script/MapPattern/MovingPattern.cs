@@ -3,12 +3,10 @@ using UnityEngine;
 
 public enum LoopType
 {
-    None,       // 반복 없음 (끝나면 멈춤)
-    Loop,       // 순방향 루프 (0-1-2-0-1-2)
-    PingPong    // 왕복 (0-1-2-1-0-1-2-1-0)
+    None,
+    Loop,
+    PingPong
 }
-
-
 
 [ExecuteAlways]
 public class MovingPattern : MonoBehaviour
@@ -36,11 +34,10 @@ public class MovingPattern : MonoBehaviour
     [Header("충돌처리 콜라이더")]
     [SerializeField] private BoxCollider boxColliderObj;
 
-
-
     private int currentTargetIndex = 0;
     private bool isMoving = false;
     private bool isForward = true; // PingPong 방향 제어용
+
 #if UNITY_EDITOR
     private Vector3 lastWaypointPosition;
 #endif
@@ -55,7 +52,6 @@ public class MovingPattern : MonoBehaviour
 
     public void StartMoving()
     {
-        // trigger 실행될때부터 패턴시작
         if (!isMoving)
         {
             isMoving = true;
@@ -120,8 +116,7 @@ public class MovingPattern : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // 움직이지 않고 && trigger패턴이 TRUE가 되고 Player가 밟았을때
-        if (!isMoving&&isTriggerPattern && other.CompareTag("Player"))
+        if (!isMoving && isTriggerPattern && other.CompareTag("Player"))
         {
             Debug.Log("nice");
             StartMoving();
@@ -138,24 +133,12 @@ public class MovingPattern : MonoBehaviour
                 movingTarget.position = wayPoints[0].position;
                 lastWaypointPosition = wayPoints[0].position;
 
-                // 이동할때 박스콜라이더의 위치도 변경해줌
-                boxColliderObj.center = new Vector3(wayPoints[0].transform.position.x, wayPoints[0].transform.position.y, wayPoints[0].transform.position.z);
+                if (boxColliderObj != null)
+                {
+                    boxColliderObj.center = wayPoints[0].position;
+                }
             }
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (wayPoints == null || wayPoints.Length < 2)
-            return;
-
-        Gizmos.color = Color.yellow;
-        for (int i = 0; i < wayPoints.Length - 1; i++)
-        {
-            Gizmos.DrawLine(wayPoints[i].position, wayPoints[i + 1].position);
-            Gizmos.DrawSphere(wayPoints[i].position, 0.1f);
-        }
-        Gizmos.DrawSphere(wayPoints[wayPoints.Length - 1].position, 0.1f);
     }
 #endif
 }

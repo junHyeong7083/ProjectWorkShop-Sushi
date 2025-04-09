@@ -44,9 +44,9 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
 
         int deathCount = PlayerPrefs.GetInt("DeathCount", 0);
-        deathCount++; // 1 Áõ°¡
-        PlayerPrefs.SetInt("DeathCount", deathCount); // ÀúÀå
-        PlayerPrefs.Save(); // ½ÇÁ¦·Î ÀúÀå (»ý·« °¡´ÉÇÏÁö¸¸ È®½ÇÈ÷ ÇÏ·Á¸é È£Ãâ)
+        deathCount++; // 1 ï¿½ï¿½ï¿½ï¿½
+        PlayerPrefs.SetInt("DeathCount", deathCount); // ï¿½ï¿½ï¿½ï¿½
+        PlayerPrefs.Save(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ï¿½ È£ï¿½ï¿½)
 
         deathText.text = "Sushi : " + deathCount.ToString();
     }
