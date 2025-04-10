@@ -3,47 +3,36 @@ using UnityEngine;
 
 public class ThrowPattern : MonoBehaviour
 {
-    bool isThrow = false;
-
-    #region SettingValue
     [Header("회전속도 값이 오를수록 빠르게 회전합니다")]
-    public float rotateSpeed = 1440f; // 초당 1440도 (매우 빠르게)
+    public float rotateSpeed = 1440f;
 
-    [Space(20)]
-    [Header("회전할 타이밍 : 값이 오를수록 오랫동안 회전합니다.")]
-    public float rotateDuration = 0.3f; // 0.3초 동안 순간 회전
+    [Header("회전할 타이밍")]
+    public float rotateDuration = 0.3f;
 
-    [Space(20)]
-    [Header("회전후 멈춰있을 시간")]
-    public float waitTime = 5f; // 5초 대기
+    [Header("회전 후 멈춰있을 시간")]
+    public float waitTime = 5f;
 
-    [Space(20)]
-    [Header("다시 원상태로 복귀될 시간")]
-    public float backTime = 2f; // 2초 걸쳐 복귀
+    [Header("원상 복귀 시간")]
+    public float backTime = 2f;
 
-    [Space(20)]
-    [Header("플레이어를 실질적으로 밀어내는힘 높을수록 멀리 보냅니다.")]
-    public float throwPower = 20f; // 플레이어를 밀어내는 힘
+    [Header("던질 때 이동 시간")]
+    public float throwDuration = 2f;
 
-    Quaternion originalRotation;
+    [Header("모델 콜라이더")]
+    [SerializeField] private BoxCollider fbxCollider;
 
-    [Space(20)]
-    [Header("모델의 콜라이더")]
-    [SerializeField] BoxCollider fbxCollider;
-
-    [Space(20)]
     [Header("던질 콜라이더")]
-    [SerializeField] BoxCollider throwCollider;
+    [SerializeField] private BoxCollider throwCollider;
 
-    [Space(20)]
-    [Header("태초마을 위치좌표")]
-    [SerializeField] Transform PalletTownTransform;
+    [Header("태초마을 위치")]
+    [SerializeField] private Transform palletTownTransform;
 
+    [Header("던질 곡선 제어 포인트")]
+    [SerializeField] private Transform pointTransform;
 
-    [Space(20)]
-    [Header("던져질때 꼭짓점 위치")]
-    [SerializeField] Transform Pointtransform;
-    #endregion
+    private Quaternion originalRotation;
+    private bool isThrow = false;
+
     private void Start()
     {
         originalRotation = transform.rotation;
@@ -51,70 +40,79 @@ public class ThrowPattern : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.contacts.Length > 0)
-        {
-            foreach (var contact in collision.contacts)
-            {
-                if (contact.thisCollider == throwCollider)
-                {
-                    if (collision.gameObject.CompareTag("Player"))
-                    {
-                        if (!isThrow)
-                        {
-                            Throw();
+        if (!IsValidCollision(collision)) return;
+        if (isThrow) return;
 
-                            Rigidbody playerRb = collision.gameObject.GetComponent<Rigidbody>();
-                            if (playerRb != null)
-                            {
-                                // 기존 AddForce는 지우고
-                                StartCoroutine(MoveAlongCurve(playerRb));
-                            }
-                        }
-                    }
-                    break; // 한번 처리했으면 끝내기
-                }
-            }
+        Throw();
+
+        Rigidbody playerRb = collision.gameObject.GetComponent<Rigidbody>();
+
+        if (playerRb != null)
+        {
+            StartCoroutine(MoveAlongCurve(playerRb));
         }
     }
 
+    // Collision어떤거 충돌했는지 체크
+    private bool IsValidCollision(Collision collision)
+    {
+        if (collision.contacts.Length == 0) 
+            return false;
 
+        foreach (var contact in collision.contacts)
+        {
+            if (contact.thisCollider == throwCollider &&
+                collision.gameObject.CompareTag("Player"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
-    void Throw()
+    private void Throw()
     {
         isThrow = true;
         StartCoroutine(ThrowSystem());
     }
 
-    IEnumerator MoveAlongCurve(Rigidbody playerRb)
+    // 플레이어가 날라가는 동작구현
+    private IEnumerator MoveAlongCurve(Rigidbody playerRb)
     {
         Vector3 startPos = playerRb.position;
-        Vector3 controlPos = Pointtransform.position;
-        Vector3 endPos = PalletTownTransform.position;
+        Vector3 controlPos = pointTransform.position;
+        Vector3 endPos = palletTownTransform.position;
 
-        float duration = 2.0f; // 이동 총 시간
         float elapsed = 0f;
 
-        while (elapsed < duration)
+        while (elapsed < throwDuration)
         {
-            float t = elapsed / duration;
-            // 2차 베지어 곡선 공식
+            float t = elapsed / throwDuration;
+
             Vector3 bezierPos = Mathf.Pow(1 - t, 2) * startPos
                               + 2 * (1 - t) * t * controlPos
                               + Mathf.Pow(t, 2) * endPos;
 
-            playerRb.MovePosition(bezierPos); // Rigidbody로 부드럽게 이동
-            elapsed += Time.fixedDeltaTime;   // FixedUpdate 시간에 맞춰 진행
+            playerRb.MovePosition(bezierPos);
+            elapsed += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
 
-        playerRb.MovePosition(endPos); // 최종 위치 보정
+        playerRb.MovePosition(endPos);
     }
 
-
-
-    IEnumerator ThrowSystem()
+    // 던지는 시스템
+    private IEnumerator ThrowSystem()
     {
-        // 빠르게 z축 회전
+        yield return RotateQuickly();
+        yield return new WaitForSeconds(waitTime);
+        yield return RecoverRotation();
+        isThrow = false;
+    }
+
+    /// 오브젝트 던지기
+    private IEnumerator RotateQuickly()
+    {
         float timer = 0f;
         while (timer < rotateDuration)
         {
@@ -122,13 +120,13 @@ public class ThrowPattern : MonoBehaviour
             timer += Time.deltaTime;
             yield return null;
         }
+    }
 
-        // 5초 대기
-        yield return new WaitForSeconds(waitTime);
-
-        // 원래 회전으로 천천히 복귀
+    /// 원상태 복구
+    private IEnumerator RecoverRotation()
+    {
         Quaternion currentRotation = transform.rotation;
-        timer = 0f;
+        float timer = 0f;
         while (timer < backTime)
         {
             transform.rotation = Quaternion.Slerp(currentRotation, originalRotation, timer / backTime);
@@ -136,6 +134,5 @@ public class ThrowPattern : MonoBehaviour
             yield return null;
         }
         transform.rotation = originalRotation;
-        isThrow = false;
     }
 }

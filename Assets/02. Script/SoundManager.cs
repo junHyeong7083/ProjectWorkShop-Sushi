@@ -4,10 +4,6 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     private static SoundManager instance;
-    public float masterVolume;
-    public float bgmVolume;
-    public float sfxVolume;
-
     public static SoundManager Instance
     {
         get
@@ -38,14 +34,10 @@ public class SoundManager : MonoBehaviour
     private void Awake()
     {
         if (Instance != this)
-        {
             Destroy(this.gameObject);
-        }
         else
-        {
-            //  Debug.Log("???!!!");
             DontDestroyOnLoad(this.gameObject);
-        }
+
         bgmPlayer = GetComponentsInChildren<AudioSource>()[0];
         sfxPlayer = GetComponentsInChildren<AudioSource>()[1];
 
@@ -60,9 +52,7 @@ public class SoundManager : MonoBehaviour
     public void PlaySFXSound(string name, float volume = 1f)
     {
         if (audioClipsDic.ContainsKey(name) == false)
-        {
             return;
-        }
 
         if (!IsPause)
         {
