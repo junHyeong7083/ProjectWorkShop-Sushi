@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         int deathCount = PlayerPrefs.GetInt("DeathCount", 0);
         deathCount++; // 1 ����
         PlayerPrefs.SetInt("DeathCount", deathCount); // ����
-        PlayerPrefs.Save(); // ������ ���� (���� ���������� Ȯ���� �Ϸ��� ȣ��)
+        PlayerPrefs.Save(); 
 
         deathText.text = "Sushi : " + deathCount.ToString();
     }
