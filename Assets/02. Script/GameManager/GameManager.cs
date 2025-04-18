@@ -1,18 +1,23 @@
 using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
+using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine;
+using UnityEngine.Rendering; // 추가
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public ReplayPlayer replayPlayer;
     public TMP_Text timerTMP;
-
     public float Timer = 3f;
+    float TimerOffset;
 
     public GameObject gameOverPanel;
     public TMP_Text deathText;
+
+    public Volume deathVolume; 
+    public float fadeSpeed = 1f;
 
     private void Awake()
     {
@@ -22,8 +27,12 @@ public class GameManager : MonoBehaviour
             instance = this;
 
         Time.timeScale = 1f;
+        TimerOffset = Timer;
         gameOverPanel.gameObject.SetActive(false);
+        deathVolume.weight = 0f;
     }
+
+    public void TimerInit() => Timer = TimerOffset;
 
     public void TimerSub()
     {
@@ -37,25 +46,28 @@ public class GameManager : MonoBehaviour
         timerTMP.text = Timer.ToString("F2");
     }
 
-
-    private void GameOver()
+    public void GameOver()
     {
-        gameOverPanel.gameObject.SetActive(true);
-        Time.timeScale = 0f;
+        StartCoroutine(ActivateGrayEffect());
 
-        int deathCount = PlayerPrefs.GetInt("DeathCount", 0);
-        deathCount++; // 1 ����
-        PlayerPrefs.SetInt("DeathCount", deathCount); // ����
-        PlayerPrefs.Save(); 
-
-        deathText.text = "Sushi : " + deathCount.ToString();
+        replayPlayer.PlayReplay(() => {  SceneReload(); });
     }
 
-
-    public void ReStart()
+    private IEnumerator ActivateGrayEffect()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.unscaledDeltaTime * fadeSpeed;
+            deathVolume.weight = t;
+            Debug.Log(deathVolume.weight);
+            yield return null;
+        }
+
+        deathVolume.weight = 1f;
     }
+
+    public void SceneReload() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
     public void GameExit()
     {
@@ -65,5 +77,4 @@ public class GameManager : MonoBehaviour
         Application.Quit();
 #endif
     }
-
 }
