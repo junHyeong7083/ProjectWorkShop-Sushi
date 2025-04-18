@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2985301580962411428}
   - component: {fileID: 1047399936800180078}
   - component: {fileID: -9136903534077246726}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeSpatula01
   m_TagString: isWalkable
   m_Icon: {fileID: 0}

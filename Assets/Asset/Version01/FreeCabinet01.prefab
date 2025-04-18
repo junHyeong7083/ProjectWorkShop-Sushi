@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4907989644340527164}
   - component: {fileID: 7203606397255578870}
   - component: {fileID: 1445676079580831632}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeCabinet01
   m_TagString: isWalkable
   m_Icon: {fileID: 0}

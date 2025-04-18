@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1612345428942721267}
   - component: {fileID: 3568193313704764473}
   - component: {fileID: 7799727036456462346}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeTable
   m_TagString: isWalkable
   m_Icon: {fileID: 0}

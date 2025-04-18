@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 114879508748548745}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cabinet02WithEquipment
   m_TagString: isWalkable
   m_Icon: {fileID: 0}
@@ -369,6 +369,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FreePlate
       objectReference: {fileID: 0}
+    - target: {fileID: 2244577606202969946, guid: ce79dbb34713241978debb72446fa860,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -616,6 +621,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FreePlate
       objectReference: {fileID: 0}
+    - target: {fileID: 2244577606202969946, guid: ce79dbb34713241978debb72446fa860,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -694,6 +704,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FreePlate
+      objectReference: {fileID: 0}
+    - target: {fileID: 2244577606202969946, guid: ce79dbb34713241978debb72446fa860,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -858,6 +873,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FreePlate
       objectReference: {fileID: 0}
+    - target: {fileID: 2244577606202969946, guid: ce79dbb34713241978debb72446fa860,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -877,10 +897,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 114879508748548745}
     m_Modifications:
+    - target: {fileID: 2095539067200686615, guid: 044f3c58650d74108a9ac96a17e43fc8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2756360610627481282, guid: 044f3c58650d74108a9ac96a17e43fc8,
         type: 3}
       propertyPath: m_Name
       value: FreePotBig
+      objectReference: {fileID: 0}
+    - target: {fileID: 2756360610627481282, guid: 044f3c58650d74108a9ac96a17e43fc8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3245793456012145784, guid: 044f3c58650d74108a9ac96a17e43fc8,
         type: 3}
@@ -936,6 +966,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7195026186332551961, guid: 044f3c58650d74108a9ac96a17e43fc8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1016,6 +1051,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FreePlate
       objectReference: {fileID: 0}
+    - target: {fileID: 2244577606202969946, guid: ce79dbb34713241978debb72446fa860,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1094,6 +1134,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FreePlate
+      objectReference: {fileID: 0}
+    - target: {fileID: 2244577606202969946, guid: ce79dbb34713241978debb72446fa860,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1342,6 +1387,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FreePlate
       objectReference: {fileID: 0}
+    - target: {fileID: 2244577606202969946, guid: ce79dbb34713241978debb72446fa860,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1420,6 +1470,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FreePlate
+      objectReference: {fileID: 0}
+    - target: {fileID: 2244577606202969946, guid: ce79dbb34713241978debb72446fa860,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

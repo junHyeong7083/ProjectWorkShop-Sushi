@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7604380359736963404}
   - component: {fileID: 6784659854831861481}
   - component: {fileID: 8773860317593324067}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeCarpet
   m_TagString: isWalkable
   m_Icon: {fileID: 0}

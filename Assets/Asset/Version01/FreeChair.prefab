@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8454739964686901788}
   - component: {fileID: 5958740019268474582}
   - component: {fileID: 8838850812930188989}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeChair
   m_TagString: isWalkable
   m_Icon: {fileID: 0}

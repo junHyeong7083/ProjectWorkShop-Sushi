@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7327087667300665970}
   - component: {fileID: 4777189045292433080}
   - component: {fileID: 3721718988357742887}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreePepperShaker
   m_TagString: isWalkable
   m_Icon: {fileID: 0}

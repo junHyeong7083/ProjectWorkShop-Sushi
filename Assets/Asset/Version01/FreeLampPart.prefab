@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1155636191258099681}
   - component: {fileID: 2857111113223974980}
   - component: {fileID: 18727030515942542}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeLampPart
   m_TagString: isWalkable
   m_Icon: {fileID: 0}

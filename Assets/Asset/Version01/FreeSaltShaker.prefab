@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5935113928407712273}
   - component: {fileID: 8482870634922637019}
   - component: {fileID: 7679482013973596151}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeSaltShaker
   m_TagString: isWalkable
   m_Icon: {fileID: 0}

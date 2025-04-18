@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7994823651283731215}
   - component: {fileID: 5266861397827418053}
   - component: {fileID: 7645958358730851366}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeCabinet03_DrawerBig
   m_TagString: isWalkable
   m_Icon: {fileID: 0}

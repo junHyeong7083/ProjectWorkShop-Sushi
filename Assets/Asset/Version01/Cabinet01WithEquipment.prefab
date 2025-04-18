@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8571292442129120769}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cabinet01WithEquipment
   m_TagString: isWalkable
   m_Icon: {fileID: 0}
@@ -185,6 +185,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FreeMirkowave
+      objectReference: {fileID: 0}
+    - target: {fileID: 5572383165346221737, guid: cb3840b99eff048c891ec696683d430e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891188822240689956, guid: cb3840b99eff048c891ec696683d430e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7834580223355565965, guid: cb3840b99eff048c891ec696683d430e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

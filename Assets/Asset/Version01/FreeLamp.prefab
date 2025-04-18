@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1853518447451660074}
   - component: {fileID: 3321086555668500623}
   - component: {fileID: 716681373706003525}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeLamp
   m_TagString: isWalkable
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8879357053912975805}
   - component: {fileID: 2211536312844931932}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

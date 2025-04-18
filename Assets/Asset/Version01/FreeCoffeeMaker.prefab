@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4840154529508447886}
   - component: {fileID: 7264123334664233540}
   - component: {fileID: 6903274309222126802}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeCoffeeMaker
   m_TagString: isWalkable
   m_Icon: {fileID: 0}

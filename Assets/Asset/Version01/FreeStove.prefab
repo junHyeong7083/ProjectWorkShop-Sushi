@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1853404487658669826}
   - component: {fileID: 3623113814856330943}
   - component: {fileID: 8982318817233230179}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeStove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 5421739295913729063}
   - component: {fileID: 4792622069571609562}
   - component: {fileID: 9057037018376987600}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeStove_Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8868264100644430724}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeStove
   m_TagString: isWalkable
   m_Icon: {fileID: 0}

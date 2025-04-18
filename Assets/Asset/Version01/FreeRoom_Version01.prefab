@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1246781212572224816}
   - component: {fileID: 4675701908295559296}
   - component: {fileID: 45372553238829210}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6653574892485257811}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeRoom_Version01
   m_TagString: isWalkable
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 6423169245076111986}
   - component: {fileID: 7097557240010742115}
   - component: {fileID: 6455821551827912351}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeRoomCeiling
   m_TagString: Untagged
   m_Icon: {fileID: 0}

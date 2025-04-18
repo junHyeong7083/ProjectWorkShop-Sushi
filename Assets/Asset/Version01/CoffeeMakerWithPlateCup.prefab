@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2806901151547157319}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CoffeeMakerWithPlateCup
   m_TagString: isWalkable
   m_Icon: {fileID: 0}
@@ -101,6 +101,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FreePlate
+      objectReference: {fileID: 0}
+    - target: {fileID: 2244577606202969946, guid: ce79dbb34713241978debb72446fa860,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2663679863950398086}
   - component: {fileID: 221729648853067340}
   - component: {fileID: 5904798741547864579}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreePotSmall
   m_TagString: isWalkable
   m_Icon: {fileID: 0}

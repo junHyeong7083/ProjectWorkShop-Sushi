@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5245927130461468388}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ShelfWithEquipment02
   m_TagString: isWalkable
   m_Icon: {fileID: 0}
@@ -385,6 +385,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FreeShelf
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439559513023314303, guid: 33fd211ddac51448d901fd95f0fa1b10,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7815239973947417541, guid: 33fd211ddac51448d901fd95f0fa1b10,
         type: 3}

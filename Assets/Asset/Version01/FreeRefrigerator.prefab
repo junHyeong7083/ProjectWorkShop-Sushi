@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8094581195008018169}
   - component: {fileID: 7589821410650194572}
   - component: {fileID: 4631145134611420668}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeRefrigerator_DoorSmall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 6988588646121207302}
   - component: {fileID: 5548808542522547435}
   - component: {fileID: 2746801019567831082}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeRefrigerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3371192227359976278}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeRefrigerator
   m_TagString: isWalkable
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   - component: {fileID: 3289615677229197335}
   - component: {fileID: 2151691360697574455}
   - component: {fileID: 4671685236546779654}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeRefrigerator_DoorBig
   m_TagString: Untagged
   m_Icon: {fileID: 0}

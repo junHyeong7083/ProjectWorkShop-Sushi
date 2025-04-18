@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2357041627932210591}
   - component: {fileID: 527224169359065429}
   - component: {fileID: 8493588169315786272}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreeExtractorHood
   m_TagString: isWalkable
   m_Icon: {fileID: 0}
