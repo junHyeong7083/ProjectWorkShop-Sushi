@@ -23,8 +23,11 @@ public class ReplayRecorder : MonoBehaviour
     private Queue<ReplayFrame> frameQueue = new Queue<ReplayFrame>();
     private float timer;
     public Queue<ReplayFrame> FrameQueue => new Queue<ReplayFrame>(frameQueue); // 복사본 반환
+
     void FixedUpdate()
     {
+        if (Player == null || Camera == null) return;
+
         timer += Time.fixedDeltaTime;
         if (timer >= interval)
         {

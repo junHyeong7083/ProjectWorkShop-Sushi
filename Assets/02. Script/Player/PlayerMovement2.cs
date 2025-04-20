@@ -44,7 +44,7 @@ public class PlayerMovement2 : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isReplayMode) return;
+        if (ReplayManager.Instance.IsReplaying) return;
         // 목표 힘 설정
         Vector3 targetForce = movement * moveSpeed;
 

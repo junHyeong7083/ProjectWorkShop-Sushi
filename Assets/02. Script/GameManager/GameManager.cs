@@ -16,9 +16,6 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverPanel;
     public TMP_Text deathText;
 
-    public Volume deathVolume; 
-    public float fadeSpeed = 1f;
-
     private void Awake()
     {
         if (instance != null)
@@ -29,7 +26,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         TimerOffset = Timer;
         gameOverPanel.gameObject.SetActive(false);
-        deathVolume.weight = 0f;
     }
 
     public void TimerInit() => Timer = TimerOffset;
@@ -48,25 +44,9 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        StartCoroutine(ActivateGrayEffect());
-
         replayPlayer.PlayReplay(() => {  SceneReload(); });
     }
-
-    private IEnumerator ActivateGrayEffect()
-    {
-        float t = 0f;
-        while (t < 1f)
-        {
-            t += Time.unscaledDeltaTime * fadeSpeed;
-            deathVolume.weight = t;
-            Debug.Log(deathVolume.weight);
-            yield return null;
-        }
-
-        deathVolume.weight = 1f;
-    }
-
+   
     public void SceneReload() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
     public void GameExit()
