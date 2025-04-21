@@ -16,7 +16,7 @@ public class PlayerMovement2 : MonoBehaviour
     private bool isGrounded = true;
     private bool jumpPressed = false;
     private bool isJump = false;
-
+    bool canMoveing = true;
     private Block currentBlock = null; // 발판 블럭 체크용
     public bool isReplayMode = false;
     private void Awake()
@@ -44,7 +44,7 @@ public class PlayerMovement2 : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (ReplayManager.Instance.IsReplaying) return;
+        if (ReplayManager.Instance.IsReplaying || !canMoveing) return;
         // 목표 힘 설정
         Vector3 targetForce = movement * moveSpeed;
 
@@ -72,13 +72,22 @@ public class PlayerMovement2 : MonoBehaviour
         isGrounded = false;
     }
 
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("isBug"))
+            GameManager.instance.GameOver();
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
         // 땅에 부딪히면 초기화
         if (collision.gameObject.CompareTag("isGrounded"))
             GameManager.instance.GameOver();
+
+        if (collision.gameObject.CompareTag("deadCollision"))
+            canMoveing = false;
+
+
         // 발판 감지
         Block block = collision.gameObject.GetComponent<Block>();
         if (block != null)

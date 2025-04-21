@@ -22,7 +22,6 @@ public class ReplayManager : MonoBehaviour
     public void StartReplay()
     {
         IsReplaying = true;
-        Debug.Log(IsReplaying);
         OnReplayStateChanged?.Invoke(true);
     }
 

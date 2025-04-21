@@ -42,6 +42,16 @@ public class GameManager : MonoBehaviour
         timerTMP.text = Timer.ToString("F2");
     }
 
+
+    public void SceneLoad(int sceneIdx)
+    {
+        // 예외
+        if (sceneIdx < 0 || sceneIdx >= SceneManager.sceneCountInBuildSettings)
+            return;
+
+        SceneManager.LoadScene(sceneIdx);
+    }
+
     public void GameOver()
     {
         replayPlayer.PlayReplay(() => {  SceneReload(); });
