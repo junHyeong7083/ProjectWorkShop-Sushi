@@ -117,10 +117,7 @@ public class MovingPattern : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!isMoving && isTriggerPattern && other.CompareTag("Player"))
-        {
-            Debug.Log("nice");
             StartMoving();
-        }
     }
 
 #if UNITY_EDITOR

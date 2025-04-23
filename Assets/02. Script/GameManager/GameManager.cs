@@ -1,8 +1,5 @@
 using TMPro;
-using System.Collections;
-using UnityEngine.SceneManagement;
 using UnityEngine;
-using UnityEngine.Rendering; // 추가
 
 public class GameManager : MonoBehaviour
 {
@@ -42,29 +39,9 @@ public class GameManager : MonoBehaviour
         timerTMP.text = Timer.ToString("F2");
     }
 
-
-    public void SceneLoad(int sceneIdx)
-    {
-        // 예외
-        if (sceneIdx < 0 || sceneIdx >= SceneManager.sceneCountInBuildSettings)
-            return;
-
-        SceneManager.LoadScene(sceneIdx);
-    }
-
     public void GameOver()
     {
-        replayPlayer.PlayReplay(() => {  SceneReload(); });
+        replayPlayer.PlayReplay(() => {  SceneLoadManager.instance.ReloadScene(); });
     }
-   
-    public void SceneReload() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-    public void GameExit()
-    {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
-    }
 }

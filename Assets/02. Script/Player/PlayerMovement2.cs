@@ -86,8 +86,6 @@ public class PlayerMovement2 : MonoBehaviour
 
         if (collision.gameObject.CompareTag("deadCollision"))
             canMoveing = false;
-
-
         // 발판 감지
         Block block = collision.gameObject.GetComponent<Block>();
         if (block != null)

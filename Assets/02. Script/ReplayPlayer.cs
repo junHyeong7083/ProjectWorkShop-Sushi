@@ -56,9 +56,6 @@ public class ReplayPlayer : MonoBehaviour
         brain.enabled = true;
         ReplayManager.Instance.StopReplay();
 
-        if (deathVolume != null)
-            deathVolume.weight = 0f;
-
         // 콜백(씬 리로드용)
         onComplete?.Invoke();
     }
