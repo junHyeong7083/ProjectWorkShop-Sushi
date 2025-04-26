@@ -8,21 +8,18 @@ public class PlayerMovement2 : MonoBehaviour
     public float acceleration = 20f; // 가속도
 
     private Rigidbody rb;
-    private Animator animator;
     private Vector3 movement;
     private Vector3 currentVelocity; // 현재 이동 속도 저장
 
     [SerializeField] float jumpForceValue;
     private bool isGrounded = true;
-    private bool jumpPressed = false;
-    private bool isJump = false;
+    private bool jumpPressed = false; // 점프 한번만 눌리도록 막기위해
     bool canMoveing = true;
     private Block currentBlock = null; // 발판 블럭 체크용
     public bool isReplayMode = false;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -35,7 +32,7 @@ public class PlayerMovement2 : MonoBehaviour
         Vector3 camRight = Camera.main.transform.right;
 
         movement = (camForward * inputZ + camRight * inputX).normalized;
-
+        Debug.Log(isGrounded);
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             jumpPressed = true;
@@ -59,11 +56,13 @@ public class PlayerMovement2 : MonoBehaviour
             Jump();
             jumpPressed = false;
         }
+
+        if (currentBlock != null && isGrounded)
+            GameManager.instance.TimerSub();
     }
 
     private void Jump()
     {
-        isJump = true;
 
         Vector3 currentVel = rb.linearVelocity;
         rb.linearVelocity = new Vector3(0f, currentVel.y, 0f);
@@ -78,14 +77,22 @@ public class PlayerMovement2 : MonoBehaviour
             GameManager.instance.GameOver();
     }
 
+    bool isBlockOn = false;
     private void OnCollisionEnter(Collision collision)
     {
         // 땅에 부딪히면 초기화
         if (collision.gameObject.CompareTag("isGrounded"))
             GameManager.instance.GameOver();
 
+        if (collision.gameObject.CompareTag("StartPoint"))
+            isGrounded = true;
+        
+
+        /// 바퀴벌레 나오는거 무시하면됨
         if (collision.gameObject.CompareTag("deadCollision"))
             canMoveing = false;
+
+
         // 발판 감지
         Block block = collision.gameObject.GetComponent<Block>();
         if (block != null)
@@ -95,17 +102,15 @@ public class PlayerMovement2 : MonoBehaviour
             {
                 currentBlock = block;
                 GameManager.instance.TimerInit(); // 타이머 초기화
+                isBlockOn = true;
             }
             isGrounded = true;
         }
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionExit(Collision collision)
     {
-        if (currentBlock != null && collision.gameObject == currentBlock.gameObject)
-        {
-            GameManager.instance.TimerSub();
-        }
+       // GameManager.instance.TimerInit(); // 타이머 초기화
     }
 
 }

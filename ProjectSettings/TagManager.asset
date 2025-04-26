@@ -8,6 +8,7 @@ TagManager:
   - isWalkable
   - deadCollision
   - isBug
+  - StartPoint
   layers:
   - Default
   - TransparentFX
