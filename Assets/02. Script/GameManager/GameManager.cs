@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverPanel;
     public TMP_Text deathText;
 
+    DeathCommentUI deathCommentUI;
     private void Awake()
     {
         if (instance != null)
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         TimerOffset = Timer;
         gameOverPanel.gameObject.SetActive(false);
+
+        deathCommentUI = GetComponent<DeathCommentUI>();
     }
 
     public void TimerInit() => Timer = TimerOffset;
@@ -42,6 +45,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         replayPlayer.PlayReplay(() => {  SceneLoadManager.instance.ReloadScene(); });
+        deathCommentUI.ShowComment("zzz troll");
     }
 
 }

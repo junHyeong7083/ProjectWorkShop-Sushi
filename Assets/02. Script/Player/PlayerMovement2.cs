@@ -32,11 +32,8 @@ public class PlayerMovement2 : MonoBehaviour
         Vector3 camRight = Camera.main.transform.right;
 
         movement = (camForward * inputZ + camRight * inputX).normalized;
-        Debug.Log(isGrounded);
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
             jumpPressed = true;
-        }
     }
 
     private void FixedUpdate()
