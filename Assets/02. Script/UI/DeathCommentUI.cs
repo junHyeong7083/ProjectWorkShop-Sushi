@@ -19,15 +19,15 @@ public class DeathCommentUI : MonoBehaviour
     {
         backgroundImage.gameObject.SetActive(true);
 
-
         int rand = Random.Range(0, commentData.comments.Count);
-        commentText.text = commentData.comments[rand].text;
+        string randomText = commentData.comments[rand].text;
 
-        // 텍스트의 실제 크기를 가져옴
-        commentText.ForceMeshUpdate(); // 강제로 업데이트
+        commentText.text = randomText;
+
+        GoogleTTSManager.Instance.Speak(randomText);
+
+        commentText.ForceMeshUpdate();
         var textSize = commentText.textBounds.size;
-
-        // 텍스트 길이에 따라 배경의 가로 사이즈 조절
         backgroundImage.sizeDelta = new Vector2(textSize.x + paddingX, backgroundImage.sizeDelta.y);
     }
 

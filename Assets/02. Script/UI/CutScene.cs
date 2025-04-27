@@ -2,9 +2,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+#if UNITYEDITR
 using UnityEditor.Build;
 using UnityEditor.Experimental.GraphView;
-
+#endif
 public class CutScene : MonoBehaviour
 {
     public static CutScene instance; 
@@ -41,7 +42,10 @@ public class CutScene : MonoBehaviour
 
 
         if(isOnceShow == 0)
+        {
+            canvasGroup.gameObject.SetActive(true);
             StartCoroutine(PlayCutscene());
+        }
         else
         {
             canvasGroup.gameObject.SetActive(false);
