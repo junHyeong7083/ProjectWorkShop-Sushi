@@ -1,0 +1,111 @@
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using System.Collections;
+using UnityEditor.Build;
+using UnityEditor.Experimental.GraphView;
+
+public class CutScene : MonoBehaviour
+{
+    public Image[] cutsceneImageBG;
+    public Image[] cutsceneImage;
+
+    public CanvasGroup canvasGroup;
+
+    public float fadeDuration = 1f;
+    public float intervalBetweenImages = 2.0f; // 이미지끼리 등장 간격
+
+    [Header("들어갈 텍스트 내용 0 1 2 3 순서대로 기입")]
+    public string[] text;
+    float typingDuration; // 텍스트 타이핑 시간
+
+    private void Start()
+    {
+        typingDuration = fadeDuration; // 텍스트타이핑시간은 이미지가 페이드 되는동안
+        StartCoroutine(PlayCutscene());
+    }
+
+    IEnumerator PlayCutscene()
+    {
+        for (int e = 0; e < cutsceneImageBG.Length; e++)
+        {
+            var imgBG = cutsceneImageBG[e];
+            var imgCutScene = cutsceneImage[e];
+            imgBG.gameObject.SetActive(true);
+
+            // Image 자식 중 TextMeshProUGUI 가져오기
+            var textComponent = imgBG.GetComponentInChildren<TextMeshProUGUI>();
+            if (textComponent != null)
+            {
+                textComponent.text = ""; // 처음은 비워두고
+            }
+
+            yield return StartCoroutine(FadeImage(imgBG, imgCutScene, 0, 1)); // 이미지 페이드 인
+
+            if (textComponent != null)
+            {
+                yield return StartCoroutine(TypeText(textComponent, text[e]));
+                // 여기서 Text 이름을 내용으로 사용 (아니면 Text 설정해둔 내용을 가져올 수도 있음)
+            }
+
+            yield return new WaitForSeconds(intervalBetweenImages);
+        }
+
+        // 모든 컷신 등장 끝나면 전체 페이드 아웃
+        yield return new WaitForSeconds(1f);
+        yield return StartCoroutine(FadeCanvasGroup(canvasGroup, 1, 0));
+    }
+
+    IEnumerator FadeImage(Image imgBG,Image cutscene, float from, float to)
+    {
+        float time = 0;
+        Color bgColor = imgBG.color;
+        Color cutColor = cutscene.color;
+        while (time < fadeDuration)
+        {
+            bgColor.a = Mathf.Lerp(from, to, time / fadeDuration);
+            cutColor.a = Mathf.Lerp(from, to, time / fadeDuration);
+
+            imgBG.color = bgColor;
+            cutscene.color = cutColor;
+            time += Time.deltaTime;
+            yield return null;
+        }
+        bgColor.a = to;
+        cutColor.a = to;
+
+        imgBG.color = bgColor;
+        cutscene.color = cutColor;
+    }
+
+
+    IEnumerator FadeCanvasGroup(CanvasGroup group, float from, float to)
+    {
+        float time = 0;
+        while (time < fadeDuration)
+        {
+            group.alpha = Mathf.Lerp(from, to, time / fadeDuration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        group.alpha = to;
+    }
+
+    IEnumerator TypeText(TextMeshProUGUI textComponent, string fullText)
+    {
+        textComponent.text = "";
+        float time = 0f;
+        int totalLength = fullText.Length;
+
+        while (time < typingDuration)
+        {
+            int currentLength = Mathf.FloorToInt(Mathf.Lerp(0, totalLength, time / typingDuration));
+            textComponent.text = fullText.Substring(0, currentLength);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+
+        textComponent.text = fullText; // 마지막 보정
+    }
+}

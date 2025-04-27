@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         replayPlayer.PlayReplay(() => {  SceneLoadManager.instance.ReloadScene(); });
-        deathCommentUI.ShowComment("zzz troll");
+        deathCommentUI.ShowComment();
     }
 
 }
