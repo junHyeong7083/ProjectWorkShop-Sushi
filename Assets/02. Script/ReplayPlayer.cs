@@ -12,7 +12,7 @@ public class ReplayPlayer : MonoBehaviour
 
     public ReplayRecorder recorder;
     private CinemachineBrain brain;
-
+    ShaderCountUpdater shaderUpdater;
     [Header("Replay Time")]
     [SerializeField] private float replayTime = 0.5f;
 
@@ -23,6 +23,7 @@ public class ReplayPlayer : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 1f;
+        shaderUpdater = GetComponent<ShaderCountUpdater>();
         brain = Camera.GetComponent<CinemachineBrain>();
         if (deathVolume != null)
             deathVolume.weight = 0f; // 처음엔 꺼두기
@@ -56,6 +57,7 @@ public class ReplayPlayer : MonoBehaviour
         brain.enabled = true;
         ReplayManager.Instance.StopReplay();
 
+        shaderUpdater.AddCount();
         // 콜백(씬 리로드용)
         onComplete?.Invoke();
     }

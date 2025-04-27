@@ -7,6 +7,8 @@ using UnityEditor.Experimental.GraphView;
 
 public class CutScene : MonoBehaviour
 {
+    public static CutScene instance; 
+
     public Image[] cutsceneImageBG;
     public Image[] cutsceneImage;
 
@@ -19,14 +21,38 @@ public class CutScene : MonoBehaviour
     public string[] text;
     float typingDuration; // 텍스트 타이핑 시간
 
+    [HideInInspector]
+    public bool showCutScene = false;
+    [HideInInspector]
+    public int isOnceShow;
+    private void Awake()
+    {
+        if (instance != null)
+            Destroy(instance);
+        else
+            instance = this;
+    }
+
+
     private void Start()
     {
         typingDuration = fadeDuration; // 텍스트타이핑시간은 이미지가 페이드 되는동안
-        StartCoroutine(PlayCutscene());
+        isOnceShow = PlayerPrefs.GetInt("isOnceShow");
+
+
+        if(isOnceShow == 0)
+            StartCoroutine(PlayCutscene());
+        else
+        {
+            canvasGroup.gameObject.SetActive(false);
+            showCutScene = false;
+        }
+           
     }
 
     IEnumerator PlayCutscene()
     {
+        showCutScene = true;
         for (int e = 0; e < cutsceneImageBG.Length; e++)
         {
             var imgBG = cutsceneImageBG[e];
@@ -89,6 +115,13 @@ public class CutScene : MonoBehaviour
             yield return null;
         }
         group.alpha = to;
+
+        showCutScene = false;
+
+        canvasGroup.gameObject.SetActive(false);
+        // 한번 컷신 보여주면 값1로 변경후 저장
+        PlayerPrefs.SetInt("isOnceShow" , 1);
+        PlayerPrefs.Save();
     }
 
     IEnumerator TypeText(TextMeshProUGUI textComponent, string fullText)

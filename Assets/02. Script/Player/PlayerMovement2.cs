@@ -38,7 +38,8 @@ public class PlayerMovement2 : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (ReplayManager.Instance.IsReplaying || !canMoveing) return;
+        // 리플레이 컷신재생중일땐 움직임 제한
+        if (ReplayManager.Instance.IsReplaying || !canMoveing || CutScene.instance.showCutScene) return;
         // 목표 힘 설정
         Vector3 targetForce = movement * moveSpeed;
 

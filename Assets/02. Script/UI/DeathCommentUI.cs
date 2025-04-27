@@ -10,8 +10,16 @@ public class DeathCommentUI : MonoBehaviour
     public float paddingX = 50f;  // 텍스트 좌우 여백 (픽셀 단위)
     public DeathCommentData commentData;
 
+    private void Start()
+    {
+        backgroundImage.gameObject.SetActive(false);
+    }
+
     public void ShowComment()
     {
+        backgroundImage.gameObject.SetActive(true);
+
+
         int rand = Random.Range(0, commentData.comments.Count);
         commentText.text = commentData.comments[rand].text;
 
@@ -36,18 +44,6 @@ public class DeathCommentUI : MonoBehaviour
         if (jsonFile != null)
             commentData = JsonUtility.FromJson<DeathCommentData>(jsonFile.text);
         else
-        {
             Debug.LogError("death_comments.json 파일을 찾을 수 없습니다.");
-        }
-    }
-
-    // 예시로 하나 출력
-    public void PrintRandomComment()
-    {
-        if (commentData != null && commentData.comments.Count > 0)
-        {
-            int rand = Random.Range(0, commentData.comments.Count);
-            Debug.Log(commentData.comments[rand].text);
-        }
     }
 }

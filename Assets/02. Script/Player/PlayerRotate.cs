@@ -10,9 +10,10 @@ public class PlayerRotate : MonoBehaviour
         rotY = transform.localEulerAngles.y;
     }
 
+
     void Update()
     {
-        if (ReplayManager.Instance.IsReplaying) return;
+        if (ReplayManager.Instance.IsReplaying || CutScene.instance.showCutScene) return;
         float mouseX = Input.GetAxis("Mouse X");
 
         rotY += mouseX * mouseSensitivity;

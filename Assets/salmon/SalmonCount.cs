@@ -2,28 +2,31 @@ using UnityEngine;
 
 public class ShaderCountUpdater : MonoBehaviour
 {
-    public Material material;    
-    public int count = 0;      
-    public int maxCount = 5;    
+    public Material material;
+    public int maxCount = 5;
 
     void Start()
     {
+        Debug.Log(material.GetFloat("_Count"));
         UpdateShader();
     }
 
     public void AddCount()
     {
-        count++;
+        DataManager.Instance.deathCount++;
         UpdateShader();
     }
 
-   private void UpdateShader()
-{
-    if (material != null)
+    
+    
+    /// 업데이트 쉐이더? 아 씬 시작할때 
+    private void UpdateShader()
     {
-        // 현재 죽음 카운트 값을 Material로 전달
-        material.SetFloat("_Count", count);
-        material.SetFloat("_MaxCount", maxCount);
+        if (material != null)
+        {
+            // 현재 죽음 카운트 값을 Material로 전달
+            material.SetFloat("_Count", DataManager.Instance.deathCount);
+            material.SetFloat("_MaxCount", maxCount);
+        }
     }
-}
 }
