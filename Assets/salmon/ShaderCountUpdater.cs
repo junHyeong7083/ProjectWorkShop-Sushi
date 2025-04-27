@@ -3,11 +3,10 @@ using UnityEngine;
 public class ShaderCountUpdater : MonoBehaviour
 {
     public Material material;
-    public int maxCount = 5;
+    public int maxCount = 30;
 
     void Start()
     {
-        Debug.Log(material.GetFloat("_Count"));
         UpdateShader();
     }
 
@@ -17,10 +16,24 @@ public class ShaderCountUpdater : MonoBehaviour
         UpdateShader();
     }
 
-    
-    
+    public void SubCount()
+    {
+        DataManager.Instance.deathCount--;
+        UpdateShader();
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.F1))
+            AddCount();
+        if(Input.GetKeyDown(KeyCode.F2))
+            SubCount();
+    }
+
+
+
     /// 업데이트 쉐이더? 아 씬 시작할때 
-    private void UpdateShader()
+    public void UpdateShader()
     {
         if (material != null)
         {

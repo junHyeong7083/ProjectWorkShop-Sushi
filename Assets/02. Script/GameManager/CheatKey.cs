@@ -2,9 +2,22 @@ using UnityEngine;
 
 public class CheatKey : MonoBehaviour
 {
+
+
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F2)) // 테스트용
+        /// f1 누르면 점점 상하게  f2 누르면 다시 원래대로
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+
+        }
+
+
+        if(Input.GetKeyDown(KeyCode.F4)) // 테스트용
             PlayerPrefs.DeleteAll();
 
         /// f3 누르면 컷신 기록 초기화
