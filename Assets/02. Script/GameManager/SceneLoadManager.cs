@@ -24,7 +24,13 @@ public class SceneLoadManager : MonoBehaviour
 
         SceneManager.LoadScene(index);
     }
-    public void ReloadScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    public void ReloadScene()
+    {
+        SoundManager.Instance.PlaySFXSound("respawnSfx");
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); 
+    }
+        
     public void ExitGame()
     {
 #if UNITY_EDITOR

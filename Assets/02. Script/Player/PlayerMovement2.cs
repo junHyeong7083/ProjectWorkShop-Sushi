@@ -61,6 +61,7 @@ public class PlayerMovement2 : MonoBehaviour
 
     private void Jump()
     {
+        SoundManager.Instance.PlaySFXSound("jumpSfx");
 
         Vector3 currentVel = rb.linearVelocity;
         rb.linearVelocity = new Vector3(0f, currentVel.y, 0f);
