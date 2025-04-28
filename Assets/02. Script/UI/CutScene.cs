@@ -43,16 +43,19 @@ public class CutScene : MonoBehaviour
         isOnceShow = PlayerPrefs.GetInt("isOnceShow");
         cutSceneCamera = GetComponent<CutSceneCamera>();
 
-        //if (isOnceShow == 0)
-        //{
+        if (isOnceShow == 0)
+        {
             canvasGroup.gameObject.SetActive(true);
             StartCoroutine(PlayCutscene());
-        //}
-        //else
-        //{
-        //    canvasGroup.gameObject.SetActive(false);
-        //    showCutScene = false;
-        //}
+        }
+        else
+        {
+            canvasGroup.gameObject.SetActive(false);
+            showCutScene = false;
+
+            cutSceneCamera.cutsceneCam.Priority = 0;
+            cutSceneCamera.playerCam.Priority = 20;
+        }
 
 
     }
