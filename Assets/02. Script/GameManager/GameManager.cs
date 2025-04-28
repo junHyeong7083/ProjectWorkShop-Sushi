@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverPanel;
     public TMP_Text deathText;
 
+    bool isOverlapDie = false;
+
     DeathCommentUI deathCommentUI;
     private void Awake()
     {
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
         TimerOffset = Timer;
         gameOverPanel.gameObject.SetActive(false);
 
+        Cursor.lockState = CursorLockMode.Locked;
         deathCommentUI = GetComponent<DeathCommentUI>();
     }
 
@@ -37,6 +40,7 @@ public class GameManager : MonoBehaviour
         if (Timer < 0f)
         {
             Timer = 0f;
+            Debug.Log("TimerOut");
             GameOver();
         }
 
@@ -45,8 +49,34 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        replayPlayer.PlayReplay(() => {  SceneLoadManager.instance.ReloadScene(); });
-        deathCommentUI.ShowComment();
+        if(!isOverlapDie)
+        {
+            isOverlapDie = true;
+            replayPlayer.PlayReplay(() => { SceneLoadManager.instance.ReloadScene(); });
+            deathCommentUI.ShowComment();
+
+            int rand = Random.Range(0, 4);
+
+            switch (rand)
+            {
+                case 0:
+                    SoundManager.Instance.PlaySFXSound("fail1Sfx");
+                    break;
+
+                case 1:
+                    SoundManager.Instance.PlaySFXSound("fail2Sfx");
+                    break;
+
+                case 2:
+                    SoundManager.Instance.PlaySFXSound("fail3Sfx");
+                    break;
+
+                case 3:
+                    SoundManager.Instance.PlaySFXSound("fail4Sfx");
+                    break;
+            }
+        }
+      
     }
 
 }

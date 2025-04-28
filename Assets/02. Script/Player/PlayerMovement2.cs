@@ -39,7 +39,7 @@ public class PlayerMovement2 : MonoBehaviour
     private void FixedUpdate()
     {
         // 리플레이 컷신재생중일땐 움직임 제한
-        if (ReplayManager.Instance.IsReplaying || !canMoveing || CutScene.instance.showCutScene) return;
+        if (ReplayManager.Instance.IsReplaying || !canMoveing || CutScene.instance.showCutScene || isDead) return;
         // 목표 힘 설정
         Vector3 targetForce = movement * moveSpeed;
 
@@ -73,9 +73,17 @@ public class PlayerMovement2 : MonoBehaviour
     {
         if (other.gameObject.CompareTag("isBug"))
             GameManager.instance.GameOver();
+
+        if(other.gameObject.CompareTag("Goal"))
+        {
+            // 페이드인 페이드아웃
+            // 클리어
+            // 타이틀씬으로
+        }
     }
 
     bool isBlockOn = false;
+    bool isDead = false;
     private void OnCollisionEnter(Collision collision)
     {
         // 땅에 부딪히면 초기화
@@ -84,12 +92,14 @@ public class PlayerMovement2 : MonoBehaviour
 
         if (collision.gameObject.CompareTag("StartPoint"))
             isGrounded = true;
-        
 
-        /// 바퀴벌레 나오는거 무시하면됨
-        if (collision.gameObject.CompareTag("deadCollision"))
-            canMoveing = false;
+        if (isDead) return; // 이미 죽었으면 무시
 
+        if (collision.gameObject.CompareTag("isBug"))
+        {
+            isDead = true;
+            GameManager.instance.GameOver();
+        }
 
         // 발판 감지
         Block block = collision.gameObject.GetComponent<Block>();

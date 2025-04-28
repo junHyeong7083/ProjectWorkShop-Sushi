@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -12,103 +14,148 @@ public class SoundManager : MonoBehaviour
             {
                 instance = FindObjectOfType<SoundManager>();
             }
-
             return instance;
         }
     }
 
-    private AudioSource bgmPlayer;
-    private AudioSource sfxPlayer;
+    [SerializeField] AudioSource bgmPlayer;
+    [SerializeField] AudioSource[] sfxPlayers;
 
+    [Header("BGM Clips")]
+    [SerializeField] private AudioClip TitleSceneBGM;
+    [SerializeField] private AudioClip GameSceneBGM;
+    [SerializeField] private AudioClip BossSceneBGM;
+    [SerializeField] private AudioClip DefaultBGM; // 기본 BGM
 
-    [SerializeField]
-    private AudioClip MainBgmAudioClip;
+    [Header("SFX Clips")]
+    [SerializeField] private AudioClip[] sfxAudioClips;
 
-    [SerializeField]
-    private AudioClip[] sfxAudioClips;
+    private Dictionary<string, AudioClip> audioClipsDic = new Dictionary<string, AudioClip>();
+    private Dictionary<string, AudioSource> playingAudios = new Dictionary<string, AudioSource>();
 
-    Dictionary<string, AudioClip> audioClipsDic = new Dictionary<string, AudioClip>();
-
-    bool IsPause = false;
+    private bool isPause = false;
 
     private void Awake()
     {
         if (Instance != this)
-            Destroy(this.gameObject);
-        else
-            DontDestroyOnLoad(this.gameObject);
-
-        bgmPlayer = GetComponentsInChildren<AudioSource>()[0];
-        sfxPlayer = GetComponentsInChildren<AudioSource>()[1];
-
-        foreach (AudioClip audioclip in sfxAudioClips)
         {
-            audioClipsDic.Add(audioclip.name, audioclip);
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
+
+        foreach (AudioClip clip in sfxAudioClips)
+        {
+            audioClipsDic[clip.name] = clip;
         }
 
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    // SFX
-    public void PlaySFXSound(string name, float volume = 1f)
+    private void OnDestroy()
     {
-        if (audioClipsDic.ContainsKey(name) == false)
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        PlayBGMByScene(scene.name);
+        UpdateBGMVolume();
+    }
+
+    // 씬 이름에 따라 BGM 변경
+    private void PlayBGMByScene(string sceneName)
+    {
+        if (bgmPlayer == null)
             return;
 
-        if (!IsPause)
-        {
-            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.clip = audioClipsDic[name];
-            audioSource.Play();
+        AudioClip clipToPlay = DefaultBGM;
 
-            // 재생 중인 AudioSource 저장
-            playingAudios[name] = audioSource;
+        switch (sceneName)
+        {
+            case "Title":
+                clipToPlay = TitleSceneBGM;
+                break;
+            case "GameScene":
+                clipToPlay = GameSceneBGM;
+                break;
+            case "Boss":
+                clipToPlay = BossSceneBGM;
+                break;
+            default:
+                clipToPlay = DefaultBGM;
+                break;
+        }
+
+        if (bgmPlayer.clip != clipToPlay)
+        {
+            bgmPlayer.clip = clipToPlay;
+            bgmPlayer.loop = true;
+            bgmPlayer.volume = DataManager.Instance.soundValue;
+            bgmPlayer.Play();
         }
     }
+
+    // --- SFX ---
+
+    public void PlaySFXSound(string name)
+    {
+        float volume = PlayerPrefs.GetFloat("SoundVolume");
+        if (!audioClipsDic.ContainsKey(name))
+            return;
+
+        if (!isPause)
+        {
+            GameObject sfxObj = new GameObject($"SFX_{name}");
+            sfxObj.transform.SetParent(this.transform);
+
+            AudioSource audioSource = sfxObj.AddComponent<AudioSource>();
+            audioSource.clip = audioClipsDic[name];
+            audioSource.volume = volume;
+            audioSource.Play();
+
+            playingAudios[name] = audioSource;
+
+            Destroy(sfxObj, audioClipsDic[name].length);
+        }
+    }
+
     public void StopAudioClip(string name)
     {
         if (playingAudios.ContainsKey(name))
         {
             AudioSource audioSource = playingAudios[name];
             audioSource.Stop();
-            Destroy(audioSource);  // AudioSource 제거
+            Destroy(audioSource.gameObject);
             playingAudios.Remove(name);
         }
     }
-    // BGM 
-    public void SetBGMSound(int bgm_num, float volume = 1f)
-    {
-        bgmPlayer.loop = true;
 
-        if (bgm_num == 1)
+    // --- BGM 제어 ---
+
+    public void PlayBGM()
+    {
+        if (bgmPlayer != null)
         {
-            bgmPlayer.clip = MainBgmAudioClip;
+            bgmPlayer.Play();
+            isPause = false;
         }
     }
-    private Dictionary<string, AudioSource> playingAudios = new Dictionary<string, AudioSource>();
 
-    // Sound Play
-    public void PlaySound()
+    public void PauseBGM()
     {
-        bgmPlayer.Play();
-        //  Debug.Log("player");
-        if (IsPause)
-            IsPause = false;
+        if (bgmPlayer != null)
+        {
+            bgmPlayer.Pause();
+            isPause = true;
+        }
     }
 
-    // Sound Pause
-    public void PauseSound()
+    public void UpdateBGMVolume()
     {
-        bgmPlayer.Pause();
-
-        if (!IsPause)
-            IsPause = true;
-    }
-
-    public void SFXPauseSound()
-    {
-        sfxPlayer.Pause();
-
-        if (!IsPause)
-            IsPause = true;
+        float volume = PlayerPrefs.GetFloat("SoundVolume", 0f); // 없으면 1로
+        bgmPlayer.volume = volume;
+        for (int e = 0; e < sfxPlayers.Length; ++e)
+            sfxPlayers[e].volume = volume;
     }
 }

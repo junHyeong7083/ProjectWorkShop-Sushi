@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class PlayerRotate : MonoBehaviour
 {
-    public float mouseSensitivity = 2.0f;
+    float mouseSensitivity;
     private float rotY;
 
     void Start()
     {
+        mouseSensitivity = DataManager.Instance.mouseSensibility;
         rotY = transform.localEulerAngles.y;
     }
 

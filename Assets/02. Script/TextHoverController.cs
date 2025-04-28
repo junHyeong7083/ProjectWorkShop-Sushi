@@ -31,5 +31,14 @@ public class TextHoverController : MonoBehaviour
 
         // fontHighlight 
         btnTexts[index].fontSize = isHighlight ? highlightFont : initFontSize;
+
+
+        // soundmanager.instace.playsfx(" ");
+    }
+
+
+    public void buttonClickSound()
+    {
+        SoundManager.Instance.PlaySFXSound("clickSfx");
     }
 }

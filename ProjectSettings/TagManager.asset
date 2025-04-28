@@ -9,6 +9,7 @@ TagManager:
   - deadCollision
   - isBug
   - StartPoint
+  - Goal
   layers:
   - Default
   - TransparentFX

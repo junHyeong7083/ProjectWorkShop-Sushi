@@ -18,9 +18,11 @@ public class CutScene : MonoBehaviour
     public float fadeDuration = 1f;
     public float intervalBetweenImages = 2.0f; // 이미지끼리 등장 간격
 
+    CutSceneCamera cutSceneCamera;
+
     [Header("들어갈 텍스트 내용 0 1 2 3 순서대로 기입")]
     public string[] text;
-    float typingDuration; // 텍스트 타이핑 시간
+    [SerializeField] float typingDuration; // 텍스트 타이핑 시간
 
     [HideInInspector]
     public bool showCutScene = false;
@@ -37,21 +39,22 @@ public class CutScene : MonoBehaviour
 
     private void Start()
     {
-        typingDuration = fadeDuration; // 텍스트타이핑시간은 이미지가 페이드 되는동안
+       // typingDuration = fadeDuration; // 텍스트타이핑시간은 이미지가 페이드 되는동안
         isOnceShow = PlayerPrefs.GetInt("isOnceShow");
+        cutSceneCamera = GetComponent<CutSceneCamera>();
 
-
-        if(isOnceShow == 0)
-        {
+        //if (isOnceShow == 0)
+        //{
             canvasGroup.gameObject.SetActive(true);
             StartCoroutine(PlayCutscene());
-        }
-        else
-        {
-            canvasGroup.gameObject.SetActive(false);
-            showCutScene = false;
-        }
-           
+        //}
+        //else
+        //{
+        //    canvasGroup.gameObject.SetActive(false);
+        //    showCutScene = false;
+        //}
+
+
     }
 
     IEnumerator PlayCutscene()
@@ -126,6 +129,10 @@ public class CutScene : MonoBehaviour
         // 한번 컷신 보여주면 값1로 변경후 저장
         PlayerPrefs.SetInt("isOnceShow" , 1);
         PlayerPrefs.Save();
+
+        // 캔버스까지 모두 끝나면 카메라 무빙으로 도착지점 보여주기!!!!!
+        cutSceneCamera.StartCutSceneCameraMoving();
+
     }
 
     IEnumerator TypeText(TextMeshProUGUI textComponent, string fullText)

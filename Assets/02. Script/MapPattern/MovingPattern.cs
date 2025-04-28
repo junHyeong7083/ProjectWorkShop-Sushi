@@ -1,3 +1,4 @@
+using Mono.Cecil.Cil;
 using System.Collections;
 using UnityEngine;
 
@@ -117,25 +118,10 @@ public class MovingPattern : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!isMoving && isTriggerPattern && other.CompareTag("Player"))
-            StartMoving();
-    }
-
-#if UNITY_EDITOR
-    private void OnValidate()
-    {
-        if (movingTarget != null && wayPoints != null && wayPoints.Length > 0)
         {
-            if (lastWaypointPosition != wayPoints[0].position)
-            {
-                movingTarget.position = wayPoints[0].position;
-                lastWaypointPosition = wayPoints[0].position;
-
-                if (boxColliderObj != null)
-                {
-                    boxColliderObj.center = wayPoints[0].position;
-                }
-            }
+            StartMoving();
+            SoundManager.Instance.PlaySFXSound("bugSfx");
         }
     }
-#endif
+
 }

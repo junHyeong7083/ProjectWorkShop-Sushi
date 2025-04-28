@@ -17,6 +17,7 @@ public class DeathCommentUI : MonoBehaviour
 
     public void ShowComment()
     {
+        Debug.Log("[DeathCommentUI] ShowComment »£√‚µ ");
         backgroundImage.gameObject.SetActive(true);
 
         int rand = Random.Range(0, commentData.comments.Count);
