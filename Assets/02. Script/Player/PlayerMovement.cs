@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (collision.gameObject.CompareTag("isWalkable"))
             isTimerSub = true;
-        if (collision.gameObject.CompareTag("isGrounded") && isTimerSub)
+        if (collision.gameObject.CompareTag("isGrounded") && isTimerSub )
             GameManager.instance.TimerSub();
     }
 

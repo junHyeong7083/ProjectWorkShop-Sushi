@@ -57,6 +57,9 @@ public class CutScene : MonoBehaviour
             cutSceneCamera.playerCam.Priority = 20;
         }
 
+       // canvasGroup.gameObject.SetActive(true);
+       // StartCoroutine(PlayCutscene());
+
 
     }
 
@@ -143,11 +146,23 @@ public class CutScene : MonoBehaviour
         textComponent.text = "";
         float time = 0f;
         int totalLength = fullText.Length;
+        int lastlen = 0;
 
         while (time < typingDuration)
         {
-            int currentLength = Mathf.FloorToInt(Mathf.Lerp(0, totalLength, time / typingDuration));
-            textComponent.text = fullText.Substring(0, currentLength);
+            int curlen = Mathf.FloorToInt(Mathf.Lerp(0, totalLength, time / typingDuration));
+
+            if (curlen > lastlen) // 새 글자가 생겼을 때만
+            {
+                int rand = Random.Range(0, 12);
+                string soundName = "keyboard_" + (rand + 1);
+                SoundManager.Instance.PlaySFXSound(soundName, 0.1f);
+
+                textComponent.text = fullText.Substring(0, curlen);
+                lastlen = curlen;
+            }
+
+
             time += Time.deltaTime;
             yield return null;
         }

@@ -55,7 +55,7 @@ public class PlayerMovement2 : MonoBehaviour
             jumpPressed = false;
         }
 
-        if (currentBlock != null && isGrounded)
+        if (currentBlock != null && isGrounded && !isStartPoint)
             GameManager.instance.TimerSub();
     }
 
@@ -72,6 +72,14 @@ public class PlayerMovement2 : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.CompareTag("Goal"))
+        {
+            Debug.Log("sibalsiblaibsibalsibal");
+            GameManager.instance.GameClear();
+        }
+
+
+
         if (other.gameObject.CompareTag("isBug"))
             GameManager.instance.GameOver();
 
@@ -85,6 +93,7 @@ public class PlayerMovement2 : MonoBehaviour
 
     bool isBlockOn = false;
     bool isDead = false;
+    bool isStartPoint = false;
     private void OnCollisionEnter(Collision collision)
     {
         // 땅에 부딪히면 초기화
@@ -92,8 +101,15 @@ public class PlayerMovement2 : MonoBehaviour
             GameManager.instance.GameOver();
 
         if (collision.gameObject.CompareTag("StartPoint"))
+        {
+            isStartPoint = true;
             isGrounded = true;
+            GameManager.instance.TimerInit();
+        }
+        else
+            isStartPoint = false;
 
+     
         if (isDead) return; // 이미 죽었으면 무시
 
         if (collision.gameObject.CompareTag("isBug"))

@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 public class DeathCommentUI : MonoBehaviour
 {
@@ -8,7 +7,7 @@ public class DeathCommentUI : MonoBehaviour
     public RectTransform backgroundImage;  // 배경 이미지 RectTransform
 
     public float paddingX = 50f;  // 텍스트 좌우 여백 (픽셀 단위)
-    public DeathCommentData commentData;
+    DeathCommentData commentData;
 
     private void Start()
     {

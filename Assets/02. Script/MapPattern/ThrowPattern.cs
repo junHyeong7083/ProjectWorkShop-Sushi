@@ -50,6 +50,7 @@ public class ThrowPattern : MonoBehaviour
         if (playerRb != null)
         {
             StartCoroutine(MoveAlongCurve(playerRb));
+            GameManager.instance.TimerStop();
         }
     }
 

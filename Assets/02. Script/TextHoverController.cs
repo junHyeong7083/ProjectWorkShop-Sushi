@@ -20,6 +20,7 @@ public class TextHoverController : MonoBehaviour
             instance = this;
 
         initFontSize = btnTexts[0].fontSize;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void SetHighlight(int index, bool isHighlight)

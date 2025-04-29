@@ -14,7 +14,6 @@ public class SceneLoadManager : MonoBehaviour
         }
 
         instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     public void LoadScene(int index)

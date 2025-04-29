@@ -120,6 +120,27 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void PlaySFXSound(string name, float customVolume)
+    {
+        if (!audioClipsDic.ContainsKey(name))
+            return;
+
+        if (!isPause)
+        {
+            GameObject sfxObj = new GameObject($"SFX_{name}");
+            sfxObj.transform.SetParent(this.transform);
+
+            AudioSource audioSource = sfxObj.AddComponent<AudioSource>();
+            audioSource.clip = audioClipsDic[name];
+            audioSource.volume = customVolume; // 여기만 다름!
+            audioSource.Play();
+
+            playingAudios[name] = audioSource;
+
+            Destroy(sfxObj, audioClipsDic[name].length);
+        }
+    }
+
     public void StopAudioClip(string name)
     {
         if (playingAudios.ContainsKey(name))

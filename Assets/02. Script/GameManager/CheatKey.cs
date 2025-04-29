@@ -2,16 +2,15 @@ using UnityEngine;
 
 public class CheatKey : MonoBehaviour
 {
-
+    public GameObject Player;
+    public GameObject Goal;
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F4)) // 테스트용
-            PlayerPrefs.DeleteAll();
-
-        /// f3 누르면 컷신 기록 초기화
+        // 도착지점
         if(Input.GetKeyDown(KeyCode.F3))
-           CutScene.instance. isOnceShow = PlayerPrefs.GetInt("isOnceShow",0);
+            Player.transform.position = Goal.transform.position;
+
     }
 
 }
