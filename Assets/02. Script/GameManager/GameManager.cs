@@ -64,7 +64,6 @@ public class GameManager : MonoBehaviour
         if (Timer < 0f)
         {
             Timer = 0f;
-            Debug.Log("TimerOut");
             GameOver();
         }
 

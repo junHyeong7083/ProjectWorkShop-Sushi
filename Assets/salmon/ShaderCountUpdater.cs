@@ -7,6 +7,7 @@ public class ShaderCountUpdater : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("current count : " + DataManager.Instance.deathCount);
         UpdateShader();
     }
 
@@ -37,6 +38,7 @@ public class ShaderCountUpdater : MonoBehaviour
     {
         if (material != null)
         {
+
             // 현재 죽음 카운트 값을 Material로 전달
             material.SetFloat("_Count", DataManager.Instance.deathCount);
             material.SetFloat("_MaxCount", maxCount);

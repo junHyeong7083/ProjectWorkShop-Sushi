@@ -22,6 +22,7 @@ public class SceneLoadManager : MonoBehaviour
             return;
 
         SceneManager.LoadScene(index);
+
     }
     public void ReloadScene()
     {

@@ -74,7 +74,6 @@ public class PlayerMovement2 : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Goal"))
         {
-            Debug.Log("sibalsiblaibsibalsibal");
             GameManager.instance.GameClear();
         }
 

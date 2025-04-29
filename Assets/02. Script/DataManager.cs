@@ -28,11 +28,6 @@ public class DataManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-
-            if (SceneManager.GetActiveScene().name == "TitleScene")
-                deathCount = 0;
-
-            Debug.Log("deathcount : " + deathCount);
         }
         else
         {
@@ -41,6 +36,7 @@ public class DataManager : MonoBehaviour
     }
     private void Start()
     {
+
         soundValue = PlayerPrefs.GetFloat("SoundVolume", 0);
         sliders[1].value = soundValue;
 

@@ -20,7 +20,14 @@ public class TextHoverController : MonoBehaviour
             instance = this;
 
         initFontSize = btnTexts[0].fontSize;
+
+        
         Cursor.lockState = CursorLockMode.None;
+    }
+    private void Start()
+    {
+        // title씬에 있는 유일한 dondestroy cs => 여기서 title 올떄마다 쉐이더 값 0초기화
+        DataManager.Instance.deathCount = 0;
     }
 
     public void SetHighlight(int index, bool isHighlight)
