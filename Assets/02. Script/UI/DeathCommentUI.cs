@@ -9,6 +9,13 @@ public class DeathCommentUI : MonoBehaviour
     public float paddingX = 50f;  // 텍스트 좌우 여백 (픽셀 단위)
     DeathCommentData commentData;
 
+    void Awake()
+    {
+        commentData = JsonLoader.Load<DeathCommentData>("death_comments");
+        if (commentData == null || commentData.comments == null || commentData.comments.Count == 0)
+            Debug.LogError("[DeathCommentUI] 코멘트 데이터 x");
+    }
+
     private void Start()
     {
         backgroundImage.gameObject.SetActive(false);
@@ -16,7 +23,6 @@ public class DeathCommentUI : MonoBehaviour
 
     public void ShowComment()
     {
-        Debug.Log("[DeathCommentUI] ShowComment 호출됨");
         backgroundImage.gameObject.SetActive(true);
 
         int rand = Random.Range(0, commentData.comments.Count);
@@ -32,18 +38,4 @@ public class DeathCommentUI : MonoBehaviour
     }
 
 
-    private void Awake()
-    {
-        LoadComments();
-    }
-    private void LoadComments()
-    {
-        // Resources 폴더 기준 경로, 확장자 없이 파일명만
-        TextAsset jsonFile = Resources.Load<TextAsset>("death_comments");
-
-        if (jsonFile != null)
-            commentData = JsonUtility.FromJson<DeathCommentData>(jsonFile.text);
-        else
-            Debug.LogError("death_comments.json 파일을 찾을 수 없습니다.");
-    }
 }

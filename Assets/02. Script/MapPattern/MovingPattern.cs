@@ -116,6 +116,7 @@ public class MovingPattern : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // 현재 이동패턴이 바퀴벌레 하나만 사용되서 임시로 여기에 넣음
         if (!isMoving && isTriggerPattern && other.CompareTag("Player"))
         {
             StartMoving();

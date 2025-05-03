@@ -1,82 +1,67 @@
-ï»¿using UnityEngine;
+using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Move && Jump Settings")]
-    public float moveSpeed = 8f;
-    public float jumpForce = 8f;
-    public float acceleration = 20f; // ê°€ì†ë„
+    [Header("Move & Jump Settings")]
+    [SerializeField] float moveSpeed = 8f;
+    [SerializeField] float jumpForce = 8f;
 
     private Rigidbody rb;
-    private Animator animator;
-    private Vector3 movement;
-    private Vector3 currentVelocity; // í˜„ì¬ ì´ë™ ì†ë„ ì €ì¥
-    private bool isGrounded = true;
-    private bool jumpPressed = false;
+    private Vector3 moveDir;
+    private bool isGrounded = false;
+    private bool jumpRequested = false;
 
-    bool isTimerSub = false;
+    public bool CanMove = true;
+
+
+    // ¿ÜºÎ¿¡¼­ ÂøÁö »óÅÂ ¼³Á¤
+    public void SetGrounded(bool grounded) => isGrounded = grounded;
+    // ¿ÜºÎ¿¡¼­ ÂøÁö »óÅÂ Á¶È¸
+    public bool GetGrounded() => isGrounded;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Update()
     {
-        // ì…ë ¥ ë°›ê¸°
-        float inputX = Input.GetAxisRaw("Horizontal");
-        float inputZ = Input.GetAxisRaw("Vertical");
+        // ÄÆ½Å/¸®ÇÃ·¹ÀÌ ÁßÀÌ°Å³ª ÀÌµ¿ ±İÁö »óÅÂ¸é ¹«½Ã
+        if (!CanMove || ReplayManager.Instance.IsReplaying || CutScene.instance.showCutScene) return;
 
-        Vector3 camForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
-        Vector3 camRight = Camera.main.transform.right;
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
 
-        movement = (camForward * inputZ + camRight * inputX).normalized;
+        Vector3 camF = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
+        Vector3 camR = Camera.main.transform.right;
+
+        moveDir = (camF * v + camR * h).normalized;
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            jumpPressed = true;
-        }
+            jumpRequested = true;
     }
 
     private void FixedUpdate()
     {
-        // ëª©í‘œ ì†ë„ ì„¤ì •
-        Vector3 targetVelocity = movement * moveSpeed;
+        if (!CanMove || ReplayManager.Instance.IsReplaying || CutScene.instance.showCutScene) return;
 
-        // í˜„ì¬ ì†ë„ë¥¼ ëª©í‘œ ì†ë„ë¡œ ë¶€ë“œëŸ½ê²Œ ê°€ì†
-        currentVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
+        Vector3 force = moveDir * moveSpeed;
+        rb.AddForce(isGrounded ? force : force * 0.5f, ForceMode.Force);
 
-        // Rigidbodyì— ì ìš© (YëŠ” ì›ë˜ ì¤‘ë ¥ ì‚¬ìš©)
-        rb.linearVelocity = new Vector3(currentVelocity.x, rb.linearVelocity.y, currentVelocity.z);
-
-        if (jumpPressed)
+        if (jumpRequested)
         {
-            Jump();
-            jumpPressed = false;
+            Vector3 currentVel = rb.linearVelocity;
+            rb.linearVelocity = new Vector3(0f, currentVel.y, 0f); 
+
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isGrounded = false;
+            SoundManager.Instance.PlaySFXSound("jumpSfx");
+            jumpRequested = false;
         }
     }
 
-    private void Jump()
-    {
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        isGrounded = false;
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("isGrounded") || collision.gameObject.CompareTag("isWalkable"))
-            isGrounded = true;
-
-        if (collision.gameObject.CompareTag("isWalkable"))
-            isTimerSub = true;
-        if (collision.gameObject.CompareTag("isGrounded") && isTimerSub )
-            GameManager.instance.TimerSub();
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("isGrounded") && isTimerSub)
-            GameManager.instance.TimerSub();
-    }
+   
 
 }

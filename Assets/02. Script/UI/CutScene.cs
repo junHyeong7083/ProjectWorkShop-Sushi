@@ -12,9 +12,6 @@ public class CutScene : MonoBehaviour
 
     public Image[] cutsceneImageBG;
     public Image[] cutsceneImage;
-
-    public CanvasGroup canvasGroup;
-
     public float fadeDuration = 1f;
     public float intervalBetweenImages = 2.0f; // 이미지끼리 등장 간격
 
@@ -39,28 +36,27 @@ public class CutScene : MonoBehaviour
 
     private void Start()
     {
-       // typingDuration = fadeDuration; // 텍스트타이핑시간은 이미지가 페이드 되는동안
-        isOnceShow = PlayerPrefs.GetInt("isOnceShow");
+        isOnceShow = PlayerPrefs.GetInt("isOnceShow1");
         cutSceneCamera = GetComponent<CutSceneCamera>();
 
+        Debug.Log(isOnceShow);
+
+        // title에서 처음 컷씬 넘어갈때
         if (isOnceShow == 0)
         {
-            canvasGroup.gameObject.SetActive(true);
+            UIManager.Instance.EnterCutscene();
             StartCoroutine(PlayCutscene());
         }
         else
         {
-            canvasGroup.gameObject.SetActive(false);
+            UIManager.Instance.SkipCutScene();
             showCutScene = false;
 
+
+            /// 컷신 + 카메라 이동이없으면 기본적으로 playerCam 우선
             cutSceneCamera.cutsceneCam.Priority = 0;
             cutSceneCamera.playerCam.Priority = 20;
         }
-
-       // canvasGroup.gameObject.SetActive(true);
-       // StartCoroutine(PlayCutscene());
-
-
     }
 
     IEnumerator PlayCutscene()
@@ -92,9 +88,8 @@ public class CutScene : MonoBehaviour
 
         // 모든 컷신 등장 끝나면 전체 페이드 아웃
         yield return new WaitForSeconds(1f);
-        yield return StartCoroutine(FadeCanvasGroup(canvasGroup, 1, 0));
+        yield return StartCoroutine(FadeCanvasGroup(UIManager.Instance.cutsceneCanvasGroup, 1, 0));
     }
-
     IEnumerator FadeImage(Image imgBG,Image cutscene, float from, float to)
     {
         float time = 0;
@@ -131,9 +126,9 @@ public class CutScene : MonoBehaviour
 
         showCutScene = false;
 
-        canvasGroup.gameObject.SetActive(false);
+        UIManager.Instance.EndCutscene();
         // 한번 컷신 보여주면 값1로 변경후 저장
-        PlayerPrefs.SetInt("isOnceShow" , 1);
+        PlayerPrefs.SetInt("isOnceShow1" , 1);
         PlayerPrefs.Save();
 
         // 캔버스까지 모두 끝나면 카메라 무빙으로 도착지점 보여주기!!!!!

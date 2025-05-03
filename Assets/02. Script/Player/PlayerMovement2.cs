@@ -16,9 +16,11 @@ public class PlayerMovement2 : MonoBehaviour
     private bool jumpPressed = false; // 점프 한번만 눌리도록 막기위해
     bool canMoveing = true;
     private Block currentBlock = null; // 발판 블럭 체크용
-    public bool isReplayMode = false;
     private void Awake()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false; // 이거 추가
+
         rb = GetComponent<Rigidbody>();
     }
 
@@ -73,21 +75,10 @@ public class PlayerMovement2 : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Goal"))
-        {
             GameManager.instance.GameClear();
-        }
-
-
-
         if (other.gameObject.CompareTag("isBug"))
             GameManager.instance.GameOver();
 
-        if(other.gameObject.CompareTag("Goal"))
-        {
-            // 페이드인 페이드아웃
-            // 클리어
-            // 타이틀씬으로
-        }
     }
 
     bool isBlockOn = false;
@@ -117,18 +108,23 @@ public class PlayerMovement2 : MonoBehaviour
             GameManager.instance.GameOver();
         }
 
-        // 발판 감지
-        Block block = collision.gameObject.GetComponent<Block>();
-        if (block != null)
+        foreach (ContactPoint contact in collision.contacts)
         {
-            // 다른 발판으로 이동한 경우
-            if (currentBlock == null || currentBlock != block)
+            if (Vector3.Dot(contact.normal, Vector3.up) > 0.5f) // 위쪽을 향한 충돌
             {
-                currentBlock = block;
-                GameManager.instance.TimerInit(); // 타이머 초기화
-                isBlockOn = true;
+                Block block = collision.gameObject.GetComponent<Block>();
+                if (block != null)
+                {
+                    if (currentBlock == null || currentBlock != block)
+                    {
+                        currentBlock = block;
+                        GameManager.instance.TimerInit();
+                        isBlockOn = true;
+                    }
+                    isGrounded = true;
+                }
+                break; // 하나라도 OK면 더 체크 안 함
             }
-            isGrounded = true;
         }
     }
 
