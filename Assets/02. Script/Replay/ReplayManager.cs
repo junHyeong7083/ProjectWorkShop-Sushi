@@ -23,7 +23,7 @@ public class ReplayManager : MonoBehaviour
     {
         UIManager.Instance.OnReplay += () =>
         {
-            PlayReplay(() => SceneLoadManager.instance.ReloadScene());
+            SceneLoadManager.instance.ReloadScene();
         };
     }
 

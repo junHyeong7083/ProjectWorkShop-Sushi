@@ -6,8 +6,10 @@ using System.Text;
 public class GoogleTTSManager : MonoBehaviour
 {
     public static GoogleTTSManager Instance;
+    
+    // 보안상 api 키 삭제
     [HideInInspector]
-    public string apiKey = "AIzaSyBBBbNkedc61oN-2uf2cd7hmeLkplxJVXI";  
+    public string apiKey = "";  
 
 
     private AudioSource audioSource;
